@@ -23,21 +23,22 @@ def euclideanDistance(point1,point2) :
     dist = np.sqrt(np.sum( ( np.array(point1) - np.array(point2) ) **2 ))
     return dist
 
-dist = []
 y_pred = []
 for point1 in x_test:
+    dist = []
     for point2 in x_train:
         dist.append(euclideanDistance(point1,point2))
 
     points = np.argsort(dist)[:k]
-    pointClass = [y[i] for i in points]
+    pointClass = [y_train[i] for i in points]
     count1 = pointClass.count(1)
-    count2 = pointClass.count(2)
+    count2 = pointClass.count(0)
 
     if count1 > count2 :
         y_pred.append(1)
     else:
-        y_pred.append(2)
+        y_pred.append(0)
 
 
-print(y_pred)
+accuracy = np.mean(y_test == np.array(y_pred))
+print(accuracy)
